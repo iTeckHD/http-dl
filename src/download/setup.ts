@@ -3,7 +3,7 @@ import path from "path";
 import { getFileName } from "../utils/get-filename";
 import { Download } from "../utils/types/download.type";
 import { InputFile } from "../utils/types/input-file.type";
-import { inputFileSchema, isHttpString } from "../utils/types/validation";
+import { inputFileSchema, isHttpString } from "../utils/validation";
 
 export async function setup(inputFilePath: string, downloadDir: string) {
   return new Promise<Download[]>((resolve, reject) => {

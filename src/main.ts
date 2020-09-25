@@ -6,7 +6,7 @@ import {
   createMultibar,
   createProgressbar,
   stopMultibar,
-} from "./progress-bar";
+} from "./utils/progress-bar";
 import { download } from "./download/download";
 import { Download } from "./utils/types/download.type";
 import { getRandomWait } from "./utils/wait";
