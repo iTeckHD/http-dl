@@ -7,7 +7,8 @@ const downloadItemSchema = joi.object({
     .required()
     .pattern(HTTP_REGEX)
     .error(() => new Error("Must be an URL")),
-  name: string(),
+  fileName: string(),
+  filePath: string(),
 });
 
 export const downloadSchema = joi.array().items(downloadItemSchema);

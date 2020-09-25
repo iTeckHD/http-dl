@@ -1,7 +1,9 @@
 import { config } from "dotenv";
-import { downloadSchema } from "./utils/download.schema";
 import { start } from "./inquirer";
-import { Downloads } from "./utils/download.type";
+import { browserCompatibiltiySIGINT } from "./utils/browser-compatibility-sigint";
+import { getDownloads } from "./utils/get-downloads";
+
+browserCompatibiltiySIGINT();
 
 // DotEnv Configuration
 config();
@@ -18,20 +20,16 @@ if (!process.env.DOWNLOAD_DIR) {
 }
 
 // Load input
-const downloads: Downloads = require(process.env.INPUT_FILE);
+getDownloads(
+  process.env.INPUT_FILE as string,
+  process.env.DOWNLOAD_DIR ?? process.env.PWD
+).then((downloads) => {
+  let parallelDownloads = parseInt(process.env.PARALLEL_DOWNLOADS as string);
+  if (isNaN(parallelDownloads) || parallelDownloads < 1) {
+    parallelDownloads = 1;
+  }
 
-// Validate
-const validationResult = downloadSchema.validate(downloads);
-if (validationResult.error) {
-  console.log(validationResult);
-  process.exit(1);
-}
-
-let parallelDownloads = parseInt(process.env.PARALLEL_DOWNLOADS as string);
-if (isNaN(parallelDownloads) || parallelDownloads < 1) {
-  parallelDownloads = 1;
-}
-
-start(downloads, process.env.DOWNLOAD_DIR, {
-  parallelDownloads,
+  start(downloads, {
+    parallelDownloads,
+  });
 });

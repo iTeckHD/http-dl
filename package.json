@@ -19,11 +19,14 @@
   },
   "homepage": "https://github.com/iTeckHD/downloader#readme",
   "dependencies": {
+    "@types/cli-progress": "^3.8.0",
     "chalk": "^4.1.0",
+    "cli-progress": "^3.8.2",
     "dotenv": "^8.2.0",
     "inquirer": "^7.3.3",
     "joi": "^17.2.1",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "rxjs": "^6.6.3"
   },
   "devDependencies": {
     "@types/inquirer": "^7.3.1",
