@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import { setup } from "./download/setup";
-import { start } from "./main";
+import { start } from "./download/start";
 import { browserCompatibiltiySIGINT } from "./utils/browser-compatibility-sigint";
 
 browserCompatibiltiySIGINT();

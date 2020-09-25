@@ -2,7 +2,7 @@
 
 import { Command } from "commander";
 import { isNumber } from "lodash";
-import { start } from "../main";
+import { start } from "../download/start";
 import { browserCompatibiltiySIGINT } from "../utils/browser-compatibility-sigint";
 import { setup } from "../download/setup";
 

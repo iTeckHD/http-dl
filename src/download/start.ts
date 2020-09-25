@@ -6,10 +6,10 @@ import {
   createMultibar,
   createProgressbar,
   stopMultibar,
-} from "./utils/progress-bar";
-import { download } from "./download/download";
-import { Download } from "./utils/types/download.type";
-import { getRandomWait } from "./utils/wait";
+} from "../utils/progress-bar";
+import { download } from "./download";
+import { Download } from "../utils/types/download.type";
+import { getRandomWait } from "../utils/wait";
 
 interface Options {
   parallelDownloads: number;
@@ -18,30 +18,37 @@ interface Options {
 }
 
 export async function start(downloads: Download[], options: Options) {
-  console.clear();
-  console.log("Following files will be downloaded:");
+  if (!options.silent) {
+    // List files to download
+    console.clear();
+    console.log("Following files will be downloaded:");
+    for (const dl of downloads) {
+      console.log("> " + dl.url);
+    }
 
-  for (const dl of downloads) {
-    console.log(dl.url);
-  }
+    if (!options.force) {
+      // Wait for user to confirm continuation
+      const userResult = await prompt([
+        {
+          type: "confirm",
+          name: "start",
+          message: "Continue?",
+        },
+      ]);
 
-  const userResult = await prompt([
-    {
-      type: "confirm",
-      name: "start",
-      message: "Continue?",
-    },
-  ]);
+      if (!userResult.start) {
+        console.log("Exiting...");
+        process.exit(0);
+      }
+    }
 
-  if (!userResult.start) {
-    console.log("Exiting...");
-    process.exit(1);
-  }
+    console.clear();
 
-  console.clear();
-  createMultibar();
-  for (const dl of downloads) {
-    dl.bar = createProgressbar(path.basename(dl.filePath));
+    // Create progressbar
+    createMultibar();
+    for (const dl of downloads) {
+      dl.bar = createProgressbar(path.basename(dl.filePath));
+    }
   }
 
   const subject = new Subject<void>();
@@ -56,8 +63,10 @@ export async function start(downloads: Download[], options: Options) {
             downloadItem!.url,
             downloadItem!.filePath,
             (contentLength, chunk) => {
-              downloadItem!.bar!.setTotal(contentLength);
-              downloadItem!.bar!.increment(chunk.length);
+              if (!options.silent) {
+                downloadItem!.bar!.setTotal(contentLength);
+                downloadItem!.bar!.increment(chunk.length);
+              }
             }
           )
         )
@@ -77,6 +86,7 @@ export async function start(downloads: Download[], options: Options) {
       }
     );
 
+  // Start simulatenous downloads
   for (let i = 1; i <= options.parallelDownloads; i++) {
     subject.next();
   }
