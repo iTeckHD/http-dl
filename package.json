@@ -1,7 +1,7 @@
 {
   "name": "http-dl",
   "version": "1.0.0",
-  "description": "",
+  "description": "Uses a file to download data",
   "main": "dist/index.js",
   "bin": "dist/bin/cli.js",
   "scripts": {
