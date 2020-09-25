@@ -1,4 +1,4 @@
-# Downloader
+# http-dl
 
 Uses a file to download data.
 
