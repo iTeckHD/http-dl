@@ -42,17 +42,16 @@ export async function start(downloads: Download[], options: Options) {
       }
     }
 
+    // Create progressbars
     console.clear();
-
-    // Create progressbar
     createMultibar();
     for (const dl of downloads) {
       dl.bar = createProgressbar(path.basename(dl.filePath));
     }
   }
 
+  // rxjs magic to start downloads
   const subject = new Subject<void>();
-
   subject
     .pipe(
       take(downloads.length),
