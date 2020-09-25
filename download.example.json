@@ -1,9 +1,15 @@
 [
   {
     "url": "https://github-media-downloads.s3.amazonaws.com/GitHub-Logos.zip",
-    "fileName": "GitHub-Logos.zip"
+    "fileName": "logos.zip"
   },
   {
-    "url": "https://github-media-downloads.s3.amazonaws.com/GitHub-Mark.zip"
+    "url": "https://github-media-downloads.s3.amazonaws.com/GitHub-Mark.zip",
+    "filePath": "/tmp/marks.zip"
+  },
+  {
+    "url": "https://github-media-downloads.s3.amazonaws.com/Octocats.zip",
+    "fileName": "Octos.zip",
+    "filePath": "/tmp/Octocats.zip"
   }
 ]
