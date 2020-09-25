@@ -12,11 +12,11 @@ npx http-dl [ FILE_PATH ] [ OPTIONS ]
 
 ```bash
   -V, --version   output the version number
-  -f, --file      Text or JSON file to provide download information
-  -d, --dir       Directory to save files to (Defaults to current directory)
-  -p, --parallel  Amount of downloads to start simultaenously (Defaults to 1)
-  -s, --silent    Downloading files without interface
-  -y, --force     Immediately start downloads
+  -f, --file      text or json file to provide download information
+  -d, --dir       directory to save files to (Defaults to current directory)
+  -p, --parallel  amount of downloads to start simultaenously (Defaults to 1)
+  -s, --silent    downloading files without interface
+  -y, --force     immediately start downloads
   -h, --help      display help for command
 ```
 

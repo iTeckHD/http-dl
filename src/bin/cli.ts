@@ -15,18 +15,18 @@ const program = new Command();
 program
   .version("1.0.0")
   .description("An application to automate simple downloads over HTTP")
-  .usage("downloader [ fileName ] [ OPTIONS ]")
-  .option("-f, --file", "Text or JSON file to provide download information")
+  .usage("http-dl [ FILE ] [ OPTIONS ]")
+  .option("-f, --file", "text or json file to provide download information")
   .option(
     "-d, --dir",
-    "Directory to save files to (Defaults to current directory)"
+    "directory to save files to (Defaults to current directory)"
   )
   .option(
     "-p, --parallel",
-    "Amount of downloads to start simultaenously (Defaults to 1)"
+    "amount of downloads to start simultaenously (Defaults to 1)"
   )
-  .option("-s, --silent", "Downloading files without interface")
-  .option("-y, --force", "Immediately start downloads");
+  .option("-s, --silent", "downloading files without interface")
+  .option("-y, --force", "immediately start downloads");
 
 // Evaluate cli arguments
 program.parse(process.argv);
