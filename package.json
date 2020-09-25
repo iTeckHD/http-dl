@@ -1,5 +1,5 @@
 {
-  "name": "downloader",
+  "name": "http-dl",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -8,19 +8,20 @@
     "cli": "ts-node src/bin/cli",
     "build": "tsc",
     "start": "ts-node src/index",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iTeckHD/downloader.git"
+    "url": "git+https://github.com/iTeckHD/http-dl.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iTeckHD/downloader/issues"
+    "url": "https://github.com/iTeckHD/http-dl/issues"
   },
-  "homepage": "https://github.com/iTeckHD/downloader#readme",
+  "homepage": "https://github.com/iTeckHD/http-dl#readme",
   "dependencies": {
     "@types/cli-progress": "^3.8.0",
     "chalk": "^4.1.0",

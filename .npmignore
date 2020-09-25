@@ -1,0 +1,4 @@
+.env.example
+.gitignore
+/download.*.*
+tsconfig.json
