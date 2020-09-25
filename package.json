@@ -1,6 +1,6 @@
 {
   "name": "http-dl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Uses a file to download data",
   "main": "dist/index.js",
   "bin": "dist/bin/cli.js",
@@ -8,7 +8,7 @@
     "cli": "ts-node src/bin/cli",
     "build": "tsc",
     "start": "ts-node src/index",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm i && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
