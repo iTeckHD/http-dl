@@ -1,11 +1,16 @@
 import fs from "fs";
 import http, { IncomingMessage } from "http";
 import https from "https";
+import { compatibiltiySIGINT } from "../utils/compatibility-sigint";
+
+compatibiltiySIGINT();
+http.globalAgent.maxSockets = 50;
+https.globalAgent.maxSockets = 50;
 
 export function download(
   url: string,
   filePath: string,
-  onData: (contentLength: number, chunk: any) => void
+  onData: (contentLength: number, chunkLength: number) => void
 ) {
   return new Promise<void>((resolve, reject) => {
     const module = url.startsWith("https://") ? https : http;
@@ -14,6 +19,7 @@ export function download(
       onResponse(filePath, onData, () => {
         process.off("exit", _onExit);
         process.off("SIGINT", _onExit);
+        request.end();
         resolve();
       })
     );
@@ -37,7 +43,7 @@ export function download(
 
 function onResponse(
   filePath: string,
-  onData: (contentLength: number, chunk: any) => void,
+  onData: (contentLength: number, chunkLength: number) => void,
   onComplete: () => void
 ) {
   const file = fs.createWriteStream(filePath);
@@ -47,7 +53,7 @@ function onResponse(
 
     response.pipe(file);
     response.on("data", (chunk) => {
-      onData(length, chunk);
+      onData(length, chunk.length);
     });
 
     file.on("finish", function () {

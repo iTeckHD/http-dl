@@ -1,9 +1,10 @@
 import { config } from "dotenv";
 import { setup } from "./download/setup";
 import { start } from "./download/start";
-import { browserCompatibiltiySIGINT } from "./utils/browser-compatibility-sigint";
+import { compatibiltiySIGINT } from "./utils/compatibility-sigint";
+import { parseParallelDownloads } from "./utils/parse-parallel-downloads";
 
-browserCompatibiltiySIGINT();
+compatibiltiySIGINT();
 
 // DotEnv Configuration
 config();
@@ -22,8 +23,9 @@ if (!process.env.DOWNLOAD_DIR) {
 // Set configuration
 const filePath = process.env.FILE_PATH;
 const downloadDir = process.env.DOWNLOAD_DIR ?? process.env.PWD;
-const rParallelDownloads = parseInt(process.env.PARALLEL_DOWNLOADS!);
-const parallelDownloads = !isNaN(rParallelDownloads) ? rParallelDownloads : 1;
+const parallelDownloads = parseParallelDownloads(
+  process.env.PARALLEL_DOWNLOADS!
+);
 
 // Setup downloads
 setup(filePath, downloadDir)

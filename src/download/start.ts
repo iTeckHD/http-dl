@@ -1,15 +1,14 @@
 import { prompt } from "inquirer";
 import path from "path";
-import { from, Subject } from "rxjs";
-import { delay, map, switchMap, take, tap } from "rxjs/operators";
+import { zip, from, Subject, timer } from "rxjs";
+import { delay, delayWhen, switchMap, take, tap, map } from "rxjs/operators";
 import {
   createMultibar,
   createProgressbar,
   stopMultibar,
 } from "../utils/progress-bar";
-import { download } from "./download";
 import { Download } from "../utils/types/download.type";
-import { getRandomWait } from "../utils/wait";
+import { download } from "./download";
 
 interface Options {
   parallelDownloads: number;
@@ -61,16 +60,16 @@ export async function start(downloads: Download[], options: Options) {
           download(
             downloadItem!.url,
             downloadItem!.filePath,
-            (contentLength, chunk) => {
+            (contentLength, chunkLength) => {
               if (!options.silent) {
                 downloadItem!.bar!.setTotal(contentLength);
-                downloadItem!.bar!.increment(chunk.length);
+                downloadItem!.bar!.increment(chunkLength);
               }
             }
           )
         )
       ),
-      delay(getRandomWait()),
+      delayWhen(() => timer(downloads.length ? 200 : 0)),
       tap(() => subject.next())
     )
     .subscribe(
@@ -82,6 +81,7 @@ export async function start(downloads: Download[], options: Options) {
       },
       () => {
         stopMultibar();
+        console.log("Completed");
       }
     );
 

@@ -1,4 +1,4 @@
-export function browserCompatibiltiySIGINT() {
+export function compatibiltiySIGINT() {
   if (process.platform === "win32") {
     var rl = require("readline").createInterface({
       input: process.stdin,

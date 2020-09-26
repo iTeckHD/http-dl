@@ -27,7 +27,7 @@ export function createProgressbar(fileName: string) {
 
 export function stopMultibar() {
   if (!multibar) {
-    throw new Error("Multibar not created");
+    return;
   }
 
   multibar.stop();
